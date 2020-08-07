@@ -1,4 +1,30 @@
 server:
   port: 8090
   servlet:
-    context-path: /auth #应用名localhost:8090/auth
+    context-path: /auth  #应用名localhost:8090/auth
+spring:
+  # 数据源配置
+  datasource:
+    username: root
+    password: 112906
+    #    url: jdbc:mysql://192.168.1.47/user_center??serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.1.47/mengxuegu?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true&failOverReadOnly=false
+    #mysql8版本以上驱动包指定新的驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #   数据源其他配置, 在 DruidConfig配置类中手动绑定
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+
+mybatis-plus:
+  # 指定实体类所有包
+  type-aliases-package: com.mengxuegu.oauth2.web.entities
+
+# 日志级别，会打印sql语句
+logging:
+  level:
+    com.mengxuegu.oauth2.web.mapper: debug

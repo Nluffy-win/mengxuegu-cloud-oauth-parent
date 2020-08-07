@@ -1,12 +1,12 @@
 package com.mengxuegu.oauth2.server.config;
 
+import com.mengxuegu.oauth2.server.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -21,23 +21,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserDetailsService customUserDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /**
-         * auth.inMemoryAuthentication()
-         *
-         *                 //测试指定用户名
-         *                 .withUser("admin")
-         *
-         *                 //测试指定2密码
-         *                 .password(passwordEncoder.encode("123"))
-         *
-         *                 //测试可访问资源，只是标识
-         *                 .authorities("product")
-         *         ;
-         */
+
+//        auth.inMemoryAuthentication()
+//
+//                //测试指定用户名
+//                .withUser("admin")
+//
+//                //测试指定2密码
+//                .password(passwordEncoder.encode("123"))
+//
+//                //测试可访问资源，只是标识
+//                .authorities("product");
+
         auth.userDetailsService(customUserDetailsService);
     }
 
@@ -52,6 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 
 
 }

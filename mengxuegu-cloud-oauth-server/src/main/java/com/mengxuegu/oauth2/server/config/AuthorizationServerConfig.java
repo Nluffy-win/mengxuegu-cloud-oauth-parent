@@ -1,6 +1,7 @@
 package com.mengxuegu.oauth2.server.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,14 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * Created by Y_Coffee on 2020/7/24
@@ -21,7 +30,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private DataSource dataSource;
+
+    @Bean
+    public ClientDetailsService jdbcClientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
 
     /**
      * 认证配置中心，配置允许被访问的认证服务器客户端
@@ -31,8 +45,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        /*
         clients.inMemory()
-
                 //用户中心的id，必须配置
                 .withClient("mengxuegu-pc")
 
@@ -54,9 +68,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 //客户端回调地址
                 .redirectUris("http://www.baidu.com/")
 
+                //设置授权码有效时长,设置为8小时
+                .accessTokenValiditySeconds(60 * 60 * 8)
+
+                //设置刷新令牌有效时长，设置一个月
+                .refreshTokenValiditySeconds(60 * 60 * 24 * 30)
         //配置第二个客户端
         //.and
         ;
+        */
+
+        //配置jdbc管理模式
+        clients.withClientDetails(jdbcClientDetailsService());
+
     }
 
     /**
@@ -66,8 +90,24 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @throws Exception
      */
 
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     @Autowired
     private UserDetailsService customUserDetailsService;
+
+
+    @Autowired//token管理策略
+    private TokenStore tokenStore;
+
+//    @Autowired //移动到上面
+//    private DataSource dataSource;
+
+    @Bean
+    public AuthorizationCodeServices jdbcAuthorizationCodeServices() {
+        return new JdbcAuthorizationCodeServices(dataSource);
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -76,6 +116,24 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         //刷新令牌必须使用
         endpoints.userDetailsService(customUserDetailsService);
+
+        //令牌管理方式
+        endpoints.tokenStore(tokenStore);
+
+        //将授权码存入数据库。使用后消失
+        endpoints.authorizationCodeServices(jdbcAuthorizationCodeServices());
     }
 
+    /**
+     * 令牌端点的安全配置
+     * @param security
+     * @throws Exception
+     */
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        // 所有人可访问 /oauth/token_key 后面要获取公钥, 默认拒绝访问
+        security.tokenKeyAccess("permitAll()");
+        // 认证后可访问 /oauth/check_token , 默认拒绝访问
+        security.checkTokenAccess("isAuthenticated()");
+    }
 }

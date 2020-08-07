@@ -24,16 +24,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
-        <druid.version>1.1.16</druid.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <druid.version>1.1.11</druid.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.8</fastjson.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-io.version>2.6</commons-io.version>
         <!-- 定义版本号, 子模块直接引用-->
         <mengxuegu-security.version>1.0-SNAPSHOT</mengxuegu-security.version>
     </properties>
+
 
 
     <!--依赖声明-->
