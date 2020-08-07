@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * Created by Y_Coffee on 2020/7/24
@@ -69,6 +70,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserDetailsService customUserDetailsService;
 
+
+    @Autowired
+    private TokenStore tokenStore;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //密码模式所需要的实例
@@ -76,6 +81,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         //刷新令牌必须使用
         endpoints.userDetailsService(customUserDetailsService);
+
+        //存入redis
+        endpoints.tokenStore(tokenStore);
     }
 
 }
