@@ -1,7 +1,7 @@
 server:
   port: 8090
   servlet:
-    context-path: /auth #应用名localhost:8090/auth
+    context-path: /auth  #应用名localhost:8090/auth
 spring:
   # 数据源配置
   datasource:

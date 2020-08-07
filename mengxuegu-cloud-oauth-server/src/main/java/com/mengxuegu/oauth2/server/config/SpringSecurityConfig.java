@@ -25,20 +25,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /**
-         * auth.inMemoryAuthentication()
-         *
-         *                 //测试指定用户名
-         *                 .withUser("admin")
-         *
-         *                 //测试指定2密码
-         *                 .password(passwordEncoder.encode("123"))
-         *
-         *                 //测试可访问资源，只是标识
-         *                 .authorities("product")
-         *         ;
-         */
-        auth.userDetailsService(customUserDetailsService);
+
+        auth.inMemoryAuthentication()
+
+                //测试指定用户名
+                .withUser("admin")
+
+                //测试指定2密码
+                .password(passwordEncoder.encode("123"))
+
+                //测试可访问资源，只是标识
+                .authorities("product");
+
+        //auth.userDetailsService(customUserDetailsService);
     }
 
     /**
