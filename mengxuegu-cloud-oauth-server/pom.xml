@@ -87,23 +87,24 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>2.3.1.RELEASE</version>
         </dependency>
-
+        -->
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--启动类,防止打错包
+                <!--启动类,防止打错包-->
                 <configuration>
-                    <mainClass>com.mengxuegu.oauth.AuthServerApplication</mainClass>
+                    <mainClass>com.mengxuegu.oauth2.AuthServerApplication</mainClass>
                 </configuration>
-                -->
+
             </plugin>
         </plugins>
     </build>
