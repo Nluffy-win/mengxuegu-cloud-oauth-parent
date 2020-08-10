@@ -10,6 +10,8 @@
     <modules>
         <module>mengxuegu-cloud-oauth-base</module>
         <module>mengxuegu-cloud-oauth-server</module>
+        <module>mengxuegu-cloud-oauth-resource-product</module>
+        <module>mengxuegu-cloud-oauth-resource-product</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
