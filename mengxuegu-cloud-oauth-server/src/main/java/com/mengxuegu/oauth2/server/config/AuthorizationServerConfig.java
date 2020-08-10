@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.sql.DataSource;
 
@@ -109,6 +110,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JdbcAuthorizationCodeServices(dataSource);
     }
 
+    //jwt令牌转换器
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //密码模式所需要的实例
@@ -118,7 +124,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.userDetailsService(customUserDetailsService);
 
         //令牌管理方式
-        endpoints.tokenStore(tokenStore);
+        endpoints.tokenStore(tokenStore)
+                //jwt令牌转换器
+                .accessTokenConverter(jwtAccessTokenConverter);
 
         //将授权码存入数据库。使用后消失
         endpoints.authorizationCodeServices(jdbcAuthorizationCodeServices());
@@ -126,6 +134,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 令牌端点的安全配置
+     *
      * @param security
      * @throws Exception
      */

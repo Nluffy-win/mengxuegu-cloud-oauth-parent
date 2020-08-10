@@ -1,6 +1,0 @@
-#spring:
-#  datasource:
-#    username: root
-#    password: 112906
-#    url: jdbc:mysql://192.168.1.47/mengxuegu?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&autoReconnect=true&failOverReadOnly=false
-#    driver-class-name: com.mysql.cj.jdbc.Driver
