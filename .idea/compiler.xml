@@ -10,6 +10,8 @@
         <module name="mengxuegu-cloud-oauth-base" />
         <module name="mengxuegu-cloud-oauth-server" />
         <module name="mengxuegu-cloud-oauth-resource-product" />
+        <module name="mengxuegu-cloud-oauth-sso-client2" />
+        <module name="mengxuegu-cloud-oauth-sso-client1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,6 +23,8 @@
       <module name="mengxuegu-cloud-oauth-base" options="-parameters" />
       <module name="mengxuegu-cloud-oauth-resource-product" options="-parameters" />
       <module name="mengxuegu-cloud-oauth-server" options="-parameters" />
+      <module name="mengxuegu-cloud-oauth-sso-client1" options="-parameters" />
+      <module name="mengxuegu-cloud-oauth-sso-client2" options="-parameters" />
       <module name="mengxuegucloudoauthresourceproduct" options="-parameters" />
     </option>
   </component>

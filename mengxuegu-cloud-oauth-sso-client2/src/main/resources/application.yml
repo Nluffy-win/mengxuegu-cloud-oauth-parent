@@ -1,0 +1,18 @@
+server:
+  port: 9002
+
+spring:
+  thymeleaf:
+    cache: false
+
+security:
+  oauth2:
+    client:
+      client-id: client2
+      client-secret: mengxuegu-secret
+      user-authorization-uri: http://localhost:8090/auth/oauth/authorize
+      access-token-uri: http://localhost:8090/auth/oauth/token
+
+    resource:
+      jwt:
+        key-uri: http://localhost:8090/auth/oauth/token_key
