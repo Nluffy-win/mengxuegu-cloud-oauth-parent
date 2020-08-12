@@ -14,6 +14,7 @@
         <module>mengxuegu-cloud-oauth-resource-product</module>
         <module>mengxuegu-cloud-oauth-sso-client1</module>
         <module>mengxuegu-cloud-oauth-sso-client2</module>
+        <module>mengxuegu-cloud-eureka</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
