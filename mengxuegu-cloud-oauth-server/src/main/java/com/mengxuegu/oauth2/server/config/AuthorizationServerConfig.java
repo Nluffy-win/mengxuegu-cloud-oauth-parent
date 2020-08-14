@@ -84,12 +84,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     }
 
-    /**
-     * 服务器端点配置
-     *
-     * @param endpoints
-     * @throws Exception
-     */
 
 
     @Autowired
@@ -114,6 +108,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
+    /**
+     * 关于认证服务器端点配置
+     * @param endpoints
+     * @throws Exception
+     */
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {

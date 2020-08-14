@@ -35,6 +35,7 @@ public class TokenConfig {
 
     private static final String SIGNING_KEY = "mengxuegu-key";
 
+
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();

@@ -1,4 +1,4 @@
-package com.mengxuegu.ouath2.resource;
+package com.mengxuegu.ouath2.resource.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +47,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //        return service;
 //}
 
+    /**
+     * 该商品资源的进行一个权限判断
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
