@@ -24,6 +24,7 @@ public class ProductController {
         list.add("格子衬衫");
         list.add("双肩包");
         return MengxueguResult.ok(list);
+
     }
 
 }

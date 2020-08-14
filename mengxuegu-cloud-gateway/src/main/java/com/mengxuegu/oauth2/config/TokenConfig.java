@@ -1,4 +1,4 @@
-package com.mengxuegu.ouath2.resource;
+package com.mengxuegu.oauth2.config;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.Bean;
@@ -11,19 +11,14 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import java.io.IOException;
 
 /**
- * Created by Y_Coffee on 2020/7/27
+ * Created by Y_Coffee on 2020/8/13
  */
 @Configuration
 public class TokenConfig {
 
-
-    private static final String SIGNING_KEY = "mengxuegu-key";
-
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        //采取对称加密进行令牌签名，资源服务器也要此秘钥解密，校验令牌合法性
-        //converter.setSigningKey(SIGNING_KEY);
         ClassPathResource resource = new ClassPathResource("public.txt");
         String publicKey = null;
         try {
@@ -35,10 +30,8 @@ public class TokenConfig {
         return converter;
     }
 
-
-    @Bean//将实例添加到容器
+    @Bean
     public TokenStore tokenStore() {
-        //jwt管理令牌
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 }
