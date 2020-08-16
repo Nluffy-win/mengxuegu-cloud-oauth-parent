@@ -50,7 +50,8 @@ public class ResourceServerConfig {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
-                    .anyRequest().permitAll()
+                    .anyRequest()
+                    .permitAll()
             ;
         }
     }
