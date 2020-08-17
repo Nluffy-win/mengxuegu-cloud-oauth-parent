@@ -22,11 +22,12 @@ public class MainController {
     private OAuth2RestTemplate restTemplate;
 
     @GetMapping("/member")
-    public String member(OAuth2RestTemplate restTemplate) {
+    public String member() {
         //因为get请求，如果是post请求就用postfor
-        MengxueguResult result =
-                restTemplate.getForObject("http://localhost:7001/product/list", MengxueguResult.class);
-        System.out.println("result：" + result);
+        ResponseEntity<MengxueguResult> entity =
+                restTemplate.getForEntity("http://localhost:7001/product/list", MengxueguResult.class);
+        MengxueguResult body = entity.getBody();
+        System.out.println("body: " + body);
         return "member";
     }
 }

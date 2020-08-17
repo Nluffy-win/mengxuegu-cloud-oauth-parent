@@ -16,8 +16,9 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 @Configuration
 public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     @Bean
-    public OAuth2RestTemplate restTemplate(UserInfoRestTemplateFactory factory){
+    public OAuth2RestTemplate restTemplate(UserInfoRestTemplateFactory factory) {
         return factory.getUserInfoRestTemplate();
     }
 
