@@ -23,6 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String RESOURCE_ID = "product-server";
 
+
     @Autowired
     private TokenStore tokenStore;
 
@@ -30,7 +31,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         // 当前资源服务器的资源id，认证服务会认证客户端有没有访问这个资源id的权限，有则可以访问当前服务
         resources.resourceId(RESOURCE_ID)
-                //对称加密转换器
+
+                //加密转换器
                 .tokenStore(tokenStore)
 //                远程认证
 //                .tokenServices(tokenService())

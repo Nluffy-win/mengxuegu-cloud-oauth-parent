@@ -11,21 +11,42 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 /**
  * Created by Y_Coffee on 2020/8/13
  */
-
+@Configuration
 public class ResourceServerConfig {
 
-    private static final String RESOURCE_ID = "product-server";
-
+    public static final String RESOURCE_ID = "product-server";
+    @Autowired
     private TokenStore tokenStore;
 
+    // 认证服务资源
+    @Configuration
+    @EnableResourceServer
+    public class AuthResourceServerConfig extends ResourceServerConfigurerAdapter {
+        @Override
+        public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+            resources.resourceId(RESOURCE_ID)
+                    .tokenStore(tokenStore)
+            ;
+        }
+
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            // 关于请求认证服务器资源,则所有请求放行
+            http.authorizeRequests()
+                    .anyRequest().permitAll();
+        }
+    }
+
+
+    // 商品资源服务器的资源
     @Configuration
     @EnableResourceServer
     public class ProductResourceServerConfig extends ResourceServerConfigurerAdapter {
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-            resources
-                    .resourceId(RESOURCE_ID)
-                    .tokenStore(tokenStore);
+            resources.resourceId(RESOURCE_ID)
+                    .tokenStore(tokenStore)
+            ;
         }
 
         @Override
@@ -33,25 +54,7 @@ public class ResourceServerConfig {
             http.authorizeRequests()
                     .antMatchers("/product/**")
                     .access("#oauth2.hasScope('PRODUCT_API')");
-            ;
         }
     }
 
-    @Configuration
-    @EnableResourceServer
-    public class AuthResourceServerConfig extends ResourceServerConfigurerAdapter{
-        @Override
-        public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-            resources
-                    .resourceId(RESOURCE_ID)
-                    .tokenStore(tokenStore);
-        }
-
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
-                    .anyRequest().permitAll()
-            ;
-        }
-    }
 }
